@@ -1,0 +1,42 @@
+Ejercicio 1
+
+Dadas las tablas:
+
+create table vuelos (
+    id_vuelo int primary key,
+    destino varchar(50),
+    asientos_libres int
+);
+
+create table reservas (
+    id_reserva int auto_increment primary key,
+    id_vuelo int,
+    nombre_pasajero varchar(100),
+    foreign key (id_vuelo) references vuelos(id_vuelo)
+);
+
+insert into vuelos values (101, 'Tokio', 1);
+
+
+El pasajero 'Jose Luis' quiere reservar plaza en el vuelo 101.
+Realizar el script SQL usando transacción. Si hay asientos libres, insertar la reserva y restar un asiento. Si no hay asientos, no hacer cambios.
+
+set transaction isolation level serializable;
+
+start transaction;
+
+select asientos_libres
+from vuelos
+where id_vuelo = 101;
+
+update vuelos
+set asientos_libres = asientos_libres - 1
+where id_vuelo = 101
+and asientos_libres > 0;
+
+insert into reservas (id_vuelo, nombre_pasajero)
+values (101, 'Jose Luis');
+
+commit;
+
+

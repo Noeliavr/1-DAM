@@ -1,0 +1,45 @@
+ALGORITMO Ejercicio4
+// Autor: RLR
+// Fecha: Sept 2025
+// Descripción: área de un circunferencia
+
+INICIO
+ //-------------------------- Parte declarativa
+	CONSTANTE NUM_PI:=3.14  //El nombre de las constantes en MAYUSCULAS buenas prácticas
+	
+	radio: decimal
+	área: decimal
+
+ //-------------------------- Cuerpo algoritmo
+      
+	mostrarPantalla ("Escribe radio de la circunferencia ");
+	leer radio
+	
+	área = NUM_PI * radio * radio
+
+	mostrarPantalla ("El área es: ", área);
+
+
+FIN 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

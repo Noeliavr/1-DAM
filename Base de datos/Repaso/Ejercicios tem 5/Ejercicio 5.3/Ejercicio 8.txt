@@ -1,0 +1,94 @@
+Ejercicio 8
+
+Dadas las tablas:
+
+create table productos (
+    id_producto int primary key,
+    nombre varchar(50),
+    stock int
+);
+
+create table pedidos (
+    id_pedido int auto_increment primary key,
+    id_producto int,
+    cantidad int,
+    cliente varchar(50),
+    foreign key (id_producto) references productos(id_producto)
+);
+
+insert into productos values
+(1, 'Monitor', 3);
+
+
+
+Dos clientes compran a la vez:
+
+Ana compra 2 monitores
+Luis compra 2 monitores
+
+Solo hay 3 monitores.
+Escribir las sentencias de ambas sesiones para que no se venda stock inexistente.
+
+
+Sesión 1 Ana:
+
+start transaction;
+
+select stock
+from productos
+where id_producto = 1
+for update;
+
+update productos
+set stock = stock - 2
+where id_producto = 1
+and stock >= 2;
+
+insert into pedidos (id_producto, cantidad, cliente)
+values (1, 2, 'Ana');
+
+commit;
+
+
+Sesión 2 Luis
+
+
+start transaction;
+
+select stock
+from productos
+where id_producto = 1
+for update;
+
+update productos
+set stock = stock - 2
+where id_producto = 1
+and stock >= 2;
+
+insert into pedidos (id_producto, cantidad, cliente)
+values (1, 2, 'Luis');
+
+commit;
+
+
+Sesión 3
+
+start transaction;
+
+select stock
+from productos
+where id_producto = 1
+for update;
+
+insert into pedidos (id_producto, cantidad, cliente)
+select 1, 2, 'Luis'
+from productos
+where id_producto = 1
+and stock >= 2;
+
+update productos
+set stock = stock - 2
+where id_producto = 1
+and stock >= 2;
+
+commit;

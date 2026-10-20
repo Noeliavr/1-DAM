@@ -1,0 +1,76 @@
+ALGORITMO Ejercicio5_v2
+// Autor: RLR
+// Fecha: Sept 2025
+// Descripción: operaciones básicas +,-,*, / y resto. Controlamos que numero2 no sea 0
+
+INICIO
+ //-------------------------- Parte declarativa
+	numero1, numero2: entero
+	suma, resta, multiplicación: enteros
+	division, resto: decimal
+
+ //-------------------------- Cuerpo algoritmo
+
+	
+      mostrarPantalla ("Escribe el primer numero, pf: ")
+      leer numero1
+
+      mostrarPantalla ("Escribe el segundo numero, pf: ")
+      leer numero2
+
+      suma = numero1+numero2
+      resta = numero1-numero2      
+      multiplicacion=numero1*numero2      
+      resto = numero1 mod numero2      //mod es el operador resto de una división
+	
+
+      SI (numero2!=0) ENTONCES
+	división = numero1/numero2       //---OJO con la division	
+      FINSI
+
+      mostrarPantalla (numero1, " + ", numero2 , " = ", suma)	
+      mostrarPantalla (numero1, " - ", numero2 , " = ", resta)
+      mostrarPantalla (numero1, " * ", numero2 , " = ", multiplicacion)	
+
+      SI (numero2!=0) ENTONCES
+	mostrarPantalla (numero1, " / ", numero2 , " = ", division)	 
+      SINO
+	mostrarPantalla ("No se puede dividir por 0")
+      FINSI
+
+      mostrarPantalla (numero1, " resto ", numero2 , " = ", resto)	
+
+	
+
+
+
+FIN 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

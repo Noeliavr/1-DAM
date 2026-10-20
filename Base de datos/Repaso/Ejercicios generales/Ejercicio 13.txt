@@ -1,0 +1,67 @@
+Ejercicio 13
+
+Crear procedimiento que inserte pedido validando stock y saldo.
+
+
+delimiter $$
+
+drop procedure if exists insertar_pedido_validado $$
+
+create procedure insertar_pedido_validado(
+    in p_id_cliente int,
+    in p_id_producto int,
+    in p_cantidad int,
+    out p_ok boolean,
+    out p_mensaje varchar(100)
+)
+begin
+    declare v_stock int;
+    declare v_precio decimal(10,2);
+    declare v_saldo decimal(10,2);
+    declare v_total decimal(10,2);
+    declare v_id_pedido int;
+
+    set p_ok = false;
+    set p_mensaje = '';
+
+    select stock, precio
+    into v_stock, v_precio
+    from productos
+    where id_producto = p_id_producto;
+
+    select saldo
+    into v_saldo
+    from clientes
+    where id_cliente = p_id_cliente;
+
+    set v_total = v_precio * p_cantidad;
+
+    if v_stock < p_cantidad then
+        set p_mensaje = 'Stock insuficiente';
+
+    elseif v_saldo < v_total then
+        set p_mensaje = 'Saldo insuficiente';
+
+    else
+        insert into pedidos(id_cliente, fecha, total)
+        values (p_id_cliente, curdate(), v_total);
+
+        set v_id_pedido = last_insert_id();
+
+        insert into detalle_pedidos(id_pedido, id_producto, cantidad)
+        values (v_id_pedido, p_id_producto, p_cantidad);
+
+        update productos
+        set stock = stock - p_cantidad
+        where id_producto = p_id_producto;
+
+        update clientes
+        set saldo = saldo - v_total
+        where id_cliente = p_id_cliente;
+
+        set p_ok = true;
+        set p_mensaje = 'Pedido realizado correctamente';
+    end if;
+end $$
+
+delimiter ;

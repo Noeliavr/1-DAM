@@ -1,0 +1,32 @@
+ALGORITMO Ejercicio1
+// Autor: RLR
+// Fecha: Sept 2025
+// Descripción:obtener la suma de dos números que se solicitan al usuario.
+
+INICIO
+ //-------------------------- Parte declarativa
+	numero1: decimal   //variable que se llama numero1 y guarda números enteros
+	numero2: decimal
+	suma: 	decimal   //almacena la suma 
+
+
+ //-------------------------- Cuerpo algoritmo
+
+	//pedimos los datos al usuario
+	mostrarPantalla ("Escribe el primer nº por favor: ")
+	leer numero1
+
+	mostrarPantalla ("Escribe el segundo nº por favor: ")
+	leer numero2
+
+	suma = numero1+numero2
+
+	mostrarPantalla ("La suma de ", numero1, " y ", numero2, " es: ", suma)
+
+FIN 
+
+
+
+
+
+

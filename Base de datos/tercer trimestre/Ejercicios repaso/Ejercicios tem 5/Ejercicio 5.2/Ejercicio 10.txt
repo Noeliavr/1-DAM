@@ -1,0 +1,65 @@
+Ejercicio 10
+
+
+Dadas las tablas:
+
+create table habitaciones (
+    numero int primary key,
+    disponibles int
+);
+
+create table reservas_hotel (
+    id_reserva int auto_increment primary key,
+    numero int,
+    cliente varchar(50),
+    foreign key (numero) references habitaciones(numero)
+);
+
+insert into habitaciones values (101, 1);
+
+
+Dos clientes intentan reservar la última habitación a la vez:
+
+Sesión 1: Ana
+Sesión 2: Luis
+
+Escribir las sentencias de ambas sesiones para evitar que se vendan dos reservas de una habitación con solo una plaza.
+
+
+set transaction isolation level serializable;
+
+start transaction;
+
+select disponibles
+from habitaciones
+where numero = 101;
+
+update habitaciones
+set disponibles = disponibles - 1
+where numero = 101
+and disponibles > 0;
+
+insert into reservas_hotel (numero, cliente)
+values (101, 'Ana');
+
+commit;
+
+
+
+set transaction isolation level serializable;
+
+start transaction;
+
+select disponibles
+from habitaciones
+where numero = 101;
+
+update habitaciones
+set disponibles = disponibles - 1
+where numero = 101
+and disponibles > 0;
+
+insert into reservas_hotel (numero, cliente)
+values (101, 'Luis');
+
+commit;

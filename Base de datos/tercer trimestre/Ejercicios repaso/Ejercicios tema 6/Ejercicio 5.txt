@@ -1,0 +1,57 @@
+Ejercicio 5
+
+Dada la tabla:
+
+create table empleados (
+    id int primary key,
+    nombre varchar(50),
+    salario decimal(10,2),
+    departamento varchar(50)
+);
+
+Recorra todos los empleados
+Si es 'Ventas' → +10% salario
+Si es 'IT' → +5% salario
+
+delimiter $$
+
+drop procedure if exists actualizar_salarios $$
+
+create procedure actualizar_salarios()
+begin
+    declare v_id int;
+    declare v_departamento varchar(50);
+    declare fin boolean default false;
+
+    declare c_empleados cursor for
+        select id, departamento
+        from empleados;
+
+    declare continue handler for not found set fin = true;
+
+    open c_empleados;
+
+    bucle: loop
+        fetch c_empleados into v_id, v_departamento;
+
+        if fin then
+            leave bucle;
+        end if;
+
+        if v_departamento = 'Ventas' then
+            update empleados
+            set salario = salario * 1.10
+            where id = v_id;
+
+        elseif v_departamento = 'IT' then
+            update empleados
+            set salario = salario * 1.05
+            where id = v_id;
+        end if;
+    end loop;
+
+    close c_empleados;
+end $$
+
+delimiter ;
+

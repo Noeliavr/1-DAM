@@ -1,0 +1,77 @@
+Ejercicio 9
+
+Crear un procedimiento procesar_compra que reciba:
+
+id_cliente
+precio
+resultadoOK (OUT)
+mensaje (OUT)
+
+Debe:
+
+validar cliente existe
+validar saldo suficiente
+restar saldo
+usar transacciones
+si hay error → rollback
+
+
+delimiter $$
+
+drop procedure if exists procesar_compra $$
+
+create procedure procesar_compra(
+    in p_id int,
+    in p_precio decimal(10,2),
+    out p_ok boolean,
+    out p_mensaje varchar(100)
+)
+begin
+    declare v_saldo decimal(10,2);
+    declare v_existe int;
+
+    declare exit handler for sqlexception
+    begin
+        rollback;
+        set p_ok = false;
+        set p_mensaje = 'Error';
+    end;
+
+    start transaction;
+
+    select count(*) into v_existe
+    from clientes
+    where id_cliente = p_id;
+
+    if v_existe = 0 then
+        set p_ok = false;
+        set p_mensaje = 'Cliente no existe';
+        rollback;
+
+    else
+        select saldo into v_saldo
+        from clientes
+        where id_cliente = p_id
+        for update;
+
+        if v_saldo < p_precio then
+            set p_ok = false;
+            set p_mensaje = 'Saldo insuficiente';
+            rollback;
+
+        else
+            update clientes
+            set saldo = saldo - p_precio
+            where id_cliente = p_id;
+
+            commit;
+
+            set p_ok = true;
+            set p_mensaje = 'OK';
+        end if;
+    end if;
+end $$
+
+delimiter ;
+
+

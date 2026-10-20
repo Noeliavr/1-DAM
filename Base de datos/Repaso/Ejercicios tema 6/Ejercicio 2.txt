@@ -1,0 +1,77 @@
+Ejercicio 2
+
+Modificar el procedimiento anterior para que:
+
+Sea seguro ante accesos concurrentes
+Garantice la integridad de los datos
+Si ocurre un error, se reviertan los cambios
+
+delimiter $$
+
+drop procedure if exists retirar_dinero_seguro $$
+
+create procedure retirar_dinero_seguro(
+    in p_id_cliente int,
+    in p_cantidad decimal(10,2),
+    out p_resultadoOK boolean,
+    out p_mensaje_error varchar(100)
+)
+begin
+    declare v_saldo decimal(10,2);
+    declare v_existe int default 0;
+
+    declare exit handler for sqlexception
+    begin
+        rollback;
+        set p_resultadoOK = false;
+        set p_mensaje_error = 'Error en la transacción';
+    end;
+
+    set p_resultadoOK = false;
+    set p_mensaje_error = '';
+
+    start transaction;
+
+    if p_cantidad <= 0 then
+        set p_mensaje_error = 'Cantidad inválida';
+        rollback;
+
+    else
+        select count(*)
+        into v_existe
+        from clientes
+        where id_cliente = p_id_cliente;
+
+        if v_existe = 0 then
+            set p_mensaje_error = 'Cliente no existe';
+            rollback;
+
+        else
+            select saldo
+            into v_saldo
+            from clientes
+            where id_cliente = p_id_cliente
+            for update;
+
+            if v_saldo < p_cantidad then
+                set p_mensaje_error = 'Saldo insuficiente';
+                rollback;
+
+            else
+                update clientes
+                set saldo = saldo - p_cantidad
+                where id_cliente = p_id_cliente;
+
+                insert into movimientos(id_cliente, cantidad, tipo)
+                values (p_id_cliente, p_cantidad, 'RETIRO');
+
+                commit;
+
+                set p_resultadoOK = true;
+                set p_mensaje_error = 'OK';
+            end if;
+        end if;
+    end if;
+end $$
+
+delimiter ;

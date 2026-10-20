@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    <!-- Elemento raíz: registro de temperaturas -->
+    <xs:element name="registroTemperaturas">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- Nombre de la provincia -->
+                <xs:element name="provincia" type="xs:string"/>
+
+                <!-- Fecha de registro válida -->
+                <xs:element name="fechaRegistro" type="xs:date"/>
+
+                <!-- Temperatura mínima (>= -50) -->
+                <xs:element name="temperaturaMinima">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                            <xs:minInclusive value="-50"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+
+                <!-- Temperatura máxima (<= 50) -->
+                <xs:element name="temperaturaMaxima">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:decimal">
+                            <xs:maxInclusive value="50"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+
+                <!-- Relación de incidencias: 0..∞ -->
+                <xs:element name="incidencias">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="incidencia" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <!-- nombre: frío | nieve | lluvia | calor -->
+                                        <xs:element name="nombre">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="frío"/>
+                                                    <xs:enumeration value="nieve"/>
+                                                    <xs:enumeration value="lluvia"/>
+                                                    <xs:enumeration value="calor"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+
+                                        <!-- severidad: alta | media | baja -->
+                                        <xs:element name="severidad">
+                                            <xs:simpleType>
+                                                <xs:restriction base="xs:string">
+                                                    <xs:enumeration value="alta"/>
+                                                    <xs:enumeration value="media"/>
+                                                    <xs:enumeration value="baja"/>
+                                                </xs:restriction>
+                                            </xs:simpleType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE productos [
+  <!ELEMENT productos (raton|teclado)*>
+
+  <!ELEMENT raton    (codigo, descripcion?)>
+  <!ELEMENT teclado  (codigo, descripcion, peso?)>
+
+  <!ELEMENT codigo      (#PCDATA)>
+  <!ELEMENT descripcion (#PCDATA)>
+  <!ELEMENT peso        (#PCDATA)>
+]>
+
+<productos>
+  <teclado>
+    <codigo>T10</codigo>
+    <descripcion>Teclado gaming</descripcion>
+    <peso>950g</peso>
+  </teclado>
+
+  <raton>
+    <codigo>R10</codigo>
+  </raton>
+
+  <teclado>
+    <codigo>T11</codigo>
+    <descripcion>Teclado oficina</descripcion>
+  </teclado>
+
+  <raton>
+    <codigo>R11</codigo>
+    <descripcion>Ratón ergonómico</descripcion>
+  </raton>
+</productos>

@@ -1,0 +1,19 @@
+Ejercicio 7
+
+Se quiere hacer una actualización masiva en la tabla productos y no se permite que nadie lea ni escriba mientras se realiza.
+
+create table productos (
+    id_producto int primary key,
+    nombre varchar(50),
+    stock int
+);
+
+
+Solución
+
+lock table productos write;
+
+update productos
+set stock = stock + 10;
+
+unlock tables;

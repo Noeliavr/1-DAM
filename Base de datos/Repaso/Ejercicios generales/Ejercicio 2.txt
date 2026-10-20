@@ -1,0 +1,26 @@
+Ejercicio 2
+
+Insertar en una tabla clientes_top los clientes cuyo total de compras sea mayor que la media.
+
+
+drop table if exists clientes_top;
+
+create table clientes_top (
+    id_cliente int,
+    nombre varchar(50),
+    total_compras decimal(10,2)
+);
+
+insert into clientes_top (id_cliente, nombre, total_compras)
+select c.id_cliente, c.nombre, sum(p.total)
+from clientes c
+join pedidos p on c.id_cliente = p.id_cliente
+group by c.id_cliente, c.nombre
+having sum(p.total) > (
+    select avg(total_cliente)
+    from (
+        select sum(total) as total_cliente
+        from pedidos
+        group by id_cliente
+    ) t
+);

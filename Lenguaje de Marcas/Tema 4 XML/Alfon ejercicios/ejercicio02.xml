@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<expedientes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:noNamespaceSchemaLocation="expedientes.xsd">
+    
+    <expediente>
+        <titulacion>Desarrollo de Aplicaciones Multiplataforma (DAM)</titulacion>
+        <estudiante>Juan Pérez García</estudiante>
+        <modulos>
+            <modulo nombre="Programación" aprobado="true" curso="Primero"/>
+            <modulo nombre="Bases de Datos" aprobado="true" curso="Primero"/>
+            <modulo nombre="Sistemas Informáticos" aprobado="false" curso="Primero"/>
+            <modulo nombre="Lenguajes de Marcas" aprobado="true" curso="Segundo"/>
+        </modulos>
+    </expediente>
+    
+    <expediente>
+        <titulacion>Desarrollo de Aplicaciones Multiplataforma (DAM)</titulacion>
+        <estudiante>María López Sánchez</estudiante>
+        <modulos>
+            <modulo nombre="Programación" aprobado="true" curso="Primero"/>
+            <modulo nombre="Bases de Datos" aprobado="true" curso="Primero"/>
+        </modulos>
+    </expediente>
+</expedientes>

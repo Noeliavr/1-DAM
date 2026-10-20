@@ -1,0 +1,87 @@
+Ejercicio 8
+
+Dadas las tablas:
+
+create table clientes (
+    id_cliente int primary key,
+    nombre varchar(50),
+    saldo decimal(10,2)
+);
+
+create table productos (
+    id_producto int primary key,
+    nombre varchar(50),
+    precio decimal(10,2),
+    stock int
+);
+
+create table pedidos (
+    id_pedido int auto_increment primary key,
+    id_cliente int,
+    fecha date,
+    foreign key (id_cliente) references clientes(id_cliente)
+);
+
+create table detalles (
+    id_pedido int,
+    id_producto int,
+    cantidad int,
+    primary key (id_pedido, id_producto),
+    foreign key (id_pedido) references pedidos(id_pedido),
+    foreign key (id_producto) references productos(id_producto)
+);
+
+insert into clientes values (1, 'Ana', 500);
+insert into productos values (1, 'Monitor', 200, 3);
+
+
+Ana compra 2 monitores.
+Crear el script transaccional que:
+
+Compruebe saldo.
+Compruebe stock.
+Inserte pedido.
+Inserte detalle.
+Reste stock.
+Reste saldo.
+Confirme o deshaga todo.
+
+
+
+set transaction isolation level serializable;
+
+start transaction;
+
+select saldo
+from clientes
+where id_cliente = 1;
+
+select stock, precio
+from productos
+where id_producto = 1;
+
+insert into pedidos (id_cliente, fecha)
+values (1, curdate());
+
+insert into detalles (id_pedido, id_producto, cantidad)
+values (last_insert_id(), 1, 2);
+
+update productos
+set stock = stock - 2
+where id_producto = 1
+and stock >= 2;
+
+update clientes
+set saldo = saldo - (
+    select precio * 2
+    from productos
+    where id_producto = 1
+)
+where id_cliente = 1
+and saldo >= (
+    select precio * 2
+    from productos
+    where id_producto = 1
+);
+
+commit;

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ejercicio - Factura XML + XSLT</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .info { background:#f7f7f7; padding:12px; border:1px solid #ddd; margin-bottom:12px; }
+  </style>
+</head>
+<body>
+
+  <h1>Factura (XML + XSLT)</h1>
+
+  <div class="info">
+    <!--
+      ESTE HTML:
+      1) Carga Ejercicio.xml
+      2) Carga Ejercicio.xslt
+      3) Aplica XSLT al XML
+      4) Inserta el resultado en #resultado
+    -->
+    Abre este archivo con Live Server para que fetch() funcione.
+  </div>
+
+  <div id="resultado">Cargando...</div>
+ // Función para cargar un archivo (XML o XSLT) y devolverlo como documento XML
+  <script>
+    async function cargarXML(ruta) {
+      const resp = await fetch(ruta);
+      const texto = await resp.text();
+      return new DOMParser().parseFromString(texto, "text/xml");
+    }
+
+    async function transformar() {
+      try {
+        // IMPORTANTE: respeta mayúsculas/minúsculas exactas del nombre de archivo
+        const xml = await cargarXML("Ejercicio.xml");
+        const xslt = await cargarXML("Ejercicio.xslt");
+
+        const proc = new XSLTProcessor();
+        proc.importStylesheet(xslt);
+
+        const fragmento = proc.transformToFragment(xml, document);
+
+        const contenedor = document.getElementById("resultado");
+        contenedor.innerHTML = "";
+        contenedor.appendChild(fragmento);
+
+      } catch (e) {
+        document.getElementById("resultado").innerHTML =
+          "ERROR: Abre con Live Server y revisa nombres exactos. Detalle: " + e;
+      }
+    }
+
+    transformar();
+  </script>
+
+</body>
+</html>

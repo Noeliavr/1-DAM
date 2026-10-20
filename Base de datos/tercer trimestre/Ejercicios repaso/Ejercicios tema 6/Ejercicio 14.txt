@@ -1,0 +1,37 @@
+Ejercicio 14
+
+Sistema de pedidos:
+
+validar stock suficiente
+validar saldo cliente
+insertar pedido
+actualizar stock y saldo
+usar transacciones
+evitar concurrencia
+
+
+
+start transaction;
+
+select stock into v_stock
+from productos
+where id = p_prod
+for update;
+
+select saldo into v_saldo
+from clientes
+where id = p_cli
+for update;
+
+if v_stock < p_cant then
+    rollback;
+end if;
+
+if v_saldo < precio then
+    rollback;
+end if;
+
+-- inserts + updates
+
+commit;
+

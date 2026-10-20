@@ -1,0 +1,12 @@
+Ejercicio 3
+
+Actualizar clientes a inactivos si no tienen pedidos.
+
+
+update clientes c
+set activo = false
+where not exists (
+    select 1
+    from pedidos p
+    where p.id_cliente = c.id_cliente
+);

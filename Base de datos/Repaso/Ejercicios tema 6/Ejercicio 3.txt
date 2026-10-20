@@ -1,0 +1,31 @@
+Ejercicio 3
+
+Crear una función categoria_saldo que reciba un saldo y devuelva:
+
+'BAJO' si < 100
+'MEDIO' si entre 100 y 500
+'ALTO' si > 500
+
+
+delimiter $$
+
+drop function if exists categoria_saldo $$
+
+create function categoria_saldo(p_saldo decimal(10,2))
+returns varchar(20)
+begin
+    declare v_categoria varchar(20);
+
+    case
+        when p_saldo < 100 then
+            set v_categoria = 'BAJO';
+        when p_saldo between 100 and 500 then
+            set v_categoria = 'MEDIO';
+        else
+            set v_categoria = 'ALTO';
+    end case;
+
+    return v_categoria;
+end $$
+
+delimiter ;

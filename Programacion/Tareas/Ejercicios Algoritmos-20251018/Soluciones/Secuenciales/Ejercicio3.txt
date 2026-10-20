@@ -1,0 +1,41 @@
+ALGORITMO Ejercicio3
+// Autor: RLR
+// Fecha: Sept 2025
+// Descripción: área de un rectángulo
+
+INICIO
+ //-------------------------- Parte declarativa
+	base, altura: decimal //datos del rectángulo
+	área : decimal
+ //-------------------------- Cuerpo algoritmo
+      
+	mostrarPantalla ("Ingrese la base: ");
+	leer base;
+
+	mostrarPantalla ("Ingrese la altura: ");
+	leer altura;
+
+	área = (base*altura);
+	
+	mostrarPantalla ("El área es: ", área);
+
+
+FIN 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

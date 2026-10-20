@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pelicula [
+    <!ELEMENT pelicula (titulo, director, sinopsis, reparto, anio?)>
+
+    <!ELEMENT titulo   (#PCDATA)>
+    <!ELEMENT director (#PCDATA)>
+    <!ELEMENT sinopsis (#PCDATA)>
+
+    <!ELEMENT reparto  (actor+)>
+    <!ELEMENT actor    (#PCDATA)>
+
+    <!ELEMENT anio     (#PCDATA)>
+]>
+<pelicula>
+    <titulo>Origen</titulo>
+    <director>Christopher Nolan</director>
+    <sinopsis>Un ladrón entra en los sueños para robar secretos.</sinopsis>
+    <reparto>
+        <actor>Leonardo DiCaprio</actor>
+        <actor>Joseph Gordon-Levitt</actor>
+    </reparto>
+    <anio>2010</anio>
+</pelicula>

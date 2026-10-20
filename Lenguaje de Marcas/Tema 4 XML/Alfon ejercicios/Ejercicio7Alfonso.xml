@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE receta [
+    <!ELEMENT receta (nombre, ingredientes, preparacion)>
+    <!ELEMENT nombre (#PCDATA)>
+    <!ELEMENT preparacion (#PCDATA)>
+
+    <!ELEMENT ingredientes (ingrediente+)>
+    <!ELEMENT ingrediente (#PCDATA)>
+
+    <!ATTLIST receta
+              raciones   CDATA              "1"
+              dificultad (baja|media|alta)  "media">
+
+    <!ATTLIST ingrediente
+              cantidad CDATA #IMPLIED
+              unidad   CDATA #IMPLIED>
+]>
+<receta raciones="2" dificultad="alta">
+    <nombre>Bizcocho de yogur</nombre>
+    <ingredientes>
+        <ingrediente cantidad="1" unidad="ud">Yogur natural</ingrediente>
+        <ingrediente cantidad="3" unidad="ud">Huevos</ingrediente>
+    </ingredientes>
+    <preparacion>Mezclar todos los ingredientes y hornear 30 minutos.</preparacion>
+</receta>

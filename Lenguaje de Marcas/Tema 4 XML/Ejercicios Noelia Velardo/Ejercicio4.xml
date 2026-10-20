@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<productos>
+    <producto>
+        <raton>
+            <codigo>R001</codigo>
+            <nombre>Ratón óptico</nombre>
+            <descripcion>Ratón óptico inalámbrico</descripcion>
+        </raton>
+    </producto>
+
+    <producto>
+        <teclado>
+            <codigo>T001</codigo>
+            <nombre>Teclado mecánico</nombre>
+        </teclado>
+    </producto>
+
+    <producto>
+        <monitor>
+            <codigo>M001</codigo>
+            <descripcion>Monitor LED 24 pulgadas</descripcion>
+        </monitor>
+    </producto>
+</productos>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE videojuego [
+    <!-- El elemento principal -->
+    <!ELEMENT videojuego (titulo, generos)>
+
+    <!-- Atributo obligatorio titulo (en la etiqueta raíz) -->
+    <!ATTLIST videojuego
+              titulo CDATA #REQUIRED>
+
+    <!-- Título como texto -->
+    <!ELEMENT titulo (#PCDATA)>
+
+    <!-- Lista de uno o más géneros -->
+    <!ELEMENT generos (genero+)>
+    <!ELEMENT genero (#PCDATA)>
+]>
+<videojuego titulo="The Legend of Zelda">
+    <titulo>The Legend of Zelda</titulo>
+    <generos>
+        <genero>Aventura</genero>
+        <genero>Acción</genero>
+    </generos>
+</videojuego>

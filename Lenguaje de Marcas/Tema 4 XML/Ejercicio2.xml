@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <!-- Tipo para textos descriptivos -->
+  <xs:simpleType name="textoTipo">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Tipo para códigos alfanuméricos corregido (permite minúsculas, :, /, espacios) -->
+  <xs:simpleType name="codigoTipo">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z0-9:/ ]{6,15}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Tipo para números de cliente -->
+  <xs:simpleType name="numeroClienteTipo">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:maxInclusive value="9999"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Tipo para direcciones largas -->
+  <xs:simpleType name="direccionTipo">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="5"/>
+      <xs:maxLength value="200"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Tipo para fechas (formato YYYY-MM-DD) -->
+  <xs:simpleType name="fechaTipo">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="2000-01-01"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Tipo para importes con 2 decimales -->
+  <xs:simpleType name="importeTipo">
+    <xs:restriction base="xs:decimal">
+      <xs:fractionDigits value="2"/>
+      <xs:minInclusive value="0.00"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Tipo para cantidades enteras -->
+  <xs:simpleType name="cantidadTipo">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:maxInclusive value="999"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Grupo reutilizable para datos de empresa/cliente -->
+  <xs:group name="datosPersona">
+    <xs:sequence>
+      <xs:element name="nombre" type="textoTipo"/>
+      <xs:element name="cif" type="codigoTipo"/>
+      <xs:element name="direccion" type="direccionTipo" minOccurs="0"/>
+      <xs:element name="poblacion" type="textoTipo" minOccurs="0"/>
+      <xs:element name="provincia" type="textoTipo" minOccurs="0"/>
+    </xs:sequence>
+  </xs:group>
+
+  <!-- Tipo complejo para cada línea de producto -->
+  <xs:complexType name="lineaFacturaTipo">
+    <xs:sequence>
+      <xs:element name="codigo" type="codigoTipo"/>
+      <xs:element name="descripcion" type="textoTipo"/>
+      <xs:element name="cantidad" type="cantidadTipo"/>
+      <xs:element name="precio" type="importeTipo"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Elemento raíz: factura completa -->
+  <xs:element name="factura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="numeroFactura" type="xs:string"/>
+        <xs:element name="datosEmisor" type="textoTipo"/>
+        <xs:element name="numeroCliente" type="numeroClienteTipo"/>
+        <xs:element name="datosCliente">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:group ref="datosPersona"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="fecha" type="fechaTipo"/>
+        <xs:element name="formaPago" type="textoTipo"/>
+        <xs:element name="lineas">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="linea" type="lineaFacturaTipo" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="baseImponible" type="importeTipo"/>
+        <xs:element name="iva" type="importeTipo"/>
+        <xs:element name="total" type="importeTipo"/>
+      </xs:sequence>
+      <!-- Atributo opcional para NIF del emisor -->
+      <xs:attribute name="nifEmisor" type="codigoTipo"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

@@ -1,0 +1,29 @@
+Ejercicio 6 
+
+Crear una función formato_nombre que reciba:
+
+nombre
+apellido
+
+Y devuelva:
+
+ambos en mayúsculas
+concatenados con " - "
+
+Ejemplo: ANA - GARCIA
+
+
+delimiter $$
+
+drop function if exists formato_nombre $$
+
+create function formato_nombre(
+    p_nombre varchar(50),
+    p_apellido varchar(50)
+)
+returns varchar(120)
+begin
+    return concat(upper(p_nombre), ' - ', upper(p_apellido));
+end $$
+
+delimiter ;

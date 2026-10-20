@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!DOCTYPE cuenta_bancaria>
+<cuentas>
+<cuenta id="ACC-001">
+    <titular>
+    	<nombre>Juan Gómez López</nombre>
+        <nif>12345678A</nif>
+    </titular>
+    <saldo>2993.60</saldo>
+    <movimientos>
+        <movimiento id="m01">
+        	<fecha>2026-03-16</fecha>
+                <tipo>ingreso</tipo>
+                <concepto>Nómina</concepto>
+                <importe>1024.50</importe>
+        </movimiento>
+</cuenta>
+</cuentas>

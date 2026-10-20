@@ -1,0 +1,62 @@
+Ejercicio 1
+
+Dadas las tablas:
+
+
+create table cuentas (
+    id_cuenta int primary key,
+    titular varchar(100),
+    saldo decimal(10,2)
+);
+
+insert into cuentas values 
+(1, 'Luisa', 100.00),
+(2, 'Miguel', 50.00);
+
+
+Luisa intenta hacer dos operaciones a la vez:
+
+Sesión 1: pagar una cena de 80 €
+Sesión 2: transferir 40 € a Miguel
+
+Escribir las sentencias de cada sesión para que no se permita que Luisa gaste más dinero del que tiene.
+
+
+Sesión 1
+
+
+start transaction;
+
+select saldo
+from cuentas
+where id_cuenta = 1
+for update;
+
+update cuentas
+set saldo = saldo - 80
+where id_cuenta = 1
+and saldo >= 80;
+
+commit;
+
+
+Sesión 2
+
+
+start transaction;
+
+select saldo
+from cuentas
+where id_cuenta = 1
+for update;
+
+update cuentas
+set saldo = saldo - 40
+where id_cuenta = 1
+and saldo >= 40;
+
+update cuentas
+set saldo = saldo + 40
+where id_cuenta = 2;
+
+commit;

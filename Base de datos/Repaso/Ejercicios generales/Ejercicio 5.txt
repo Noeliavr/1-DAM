@@ -1,0 +1,42 @@
+Ejercicio 5
+
+Crear un procedimiento que valide saldo antes de actualizarlo.
+
+delimiter $$
+
+drop procedure if exists actualizar_saldo_cliente $$
+
+create procedure actualizar_saldo_cliente(
+    in p_id_cliente int,
+    in p_cantidad decimal(10,2)
+)
+begin
+    declare v_existe int;
+    declare v_saldo decimal(10,2);
+
+    select count(*)
+    into v_existe
+    from clientes
+    where id_cliente = p_id_cliente;
+
+    if v_existe = 0 then
+        signal sqlstate '45000'
+        set message_text = 'Cliente no existe';
+    end if;
+
+    select saldo
+    into v_saldo
+    from clientes
+    where id_cliente = p_id_cliente;
+
+    if v_saldo + p_cantidad < 0 then
+        signal sqlstate '45000'
+        set message_text = 'Saldo insuficiente';
+    end if;
+
+    update clientes
+    set saldo = saldo + p_cantidad
+    where id_cliente = p_id_cliente;
+end $$
+
+delimiter ;

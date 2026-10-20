@@ -1,0 +1,21 @@
+Ejercicio 9
+
+Simular deadlock entre dos sesiones.
+
+Sesión 1
+
+start transaction;
+
+select saldo
+from cuentas
+where id_cuenta = 1
+for update;
+
+Sesión 2
+
+start transaction;
+
+select saldo
+from cuentas
+where id_cuenta = 2
+for update;

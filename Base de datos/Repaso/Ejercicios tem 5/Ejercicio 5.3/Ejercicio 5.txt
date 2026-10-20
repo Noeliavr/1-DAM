@@ -1,0 +1,45 @@
+Ejercicio 5
+
+Corregir el ejercicio anterior para que no haya deadlock.
+
+Sesión 1
+
+start transaction;
+
+select saldo
+from cuentas
+where id_cuenta in (1, 2)
+order by id_cuenta
+for update;
+
+update cuentas
+set saldo = saldo - 20
+where id_cuenta = 1;
+
+update cuentas
+set saldo = saldo + 20
+where id_cuenta = 2;
+
+commit;
+
+
+
+Sesion 2
+
+start transaction;
+
+select saldo
+from cuentas
+where id_cuenta in (1, 2)
+order by id_cuenta
+for update;
+
+update cuentas
+set saldo = saldo - 30
+where id_cuenta = 2;
+
+update cuentas
+set saldo = saldo + 30
+where id_cuenta = 1;
+
+commit;

@@ -1,0 +1,53 @@
+CHULETA ULTRA RESUMIDA — BLOQUEOS
+
+
+start transaction;
+
+select *
+from tabla
+where id = valor
+for update;
+
+update tabla
+set campo = campo - cantidad
+where id = valor;
+
+commit;
+
+
+-- bloqueo lectura tabla
+lock table tabla read;
+
+select * from tabla;
+
+unlock tables;
+
+
+-- bloqueo escritura tabla
+lock table tabla write;
+
+update tabla
+set campo = valor;
+
+unlock tables;
+
+
+
+-- bloqueo global para backup
+flush tables with read lock;
+
+unlock tables;
+
+
+
+Deadlock:
+Sesión 1 bloquea A y quiere B.
+Sesión 2 bloquea B y quiere A.
+
+Solución:
+bloquear siempre en el mismo orden.
+
+
+FOR UPDATE:
+bloquea filas seleccionadas para lectura/escritura.
+Debe ir dentro de una transacción.

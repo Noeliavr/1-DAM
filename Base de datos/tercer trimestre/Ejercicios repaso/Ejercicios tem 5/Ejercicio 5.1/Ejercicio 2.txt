@@ -1,0 +1,30 @@
+Ejercicio 2
+
+Actualizar la tabla clientes para:
+
+poner activo = FALSE
+a los clientes cuyo total de compras sea menor que la media
+
+
+update clientes
+set activo = false
+where id_cliente in (
+    select id_cliente
+    from (
+        select c.id_cliente, sum(p.total) as total_cliente
+        from clientes c
+        join pedidos p on c.id_cliente = p.id_cliente
+        group by c.id_cliente
+        having total_cliente < (
+            select avg(total_cliente)
+            from (
+                select sum(total) as total_cliente
+                from pedidos
+                group by id_cliente
+            ) t
+        )
+    ) sub
+);
+
+
+

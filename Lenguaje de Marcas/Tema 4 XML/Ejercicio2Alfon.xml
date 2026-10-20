@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+  <!-- Tipos reutilizables simples -->
+  <xs:simpleType name="str50">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/><xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="str100">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="codigoStr">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z0-9:/\-\s\.\(\)]{3,20}"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="numCliente">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:maxInclusive value="9999"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="dinero">
+    <xs:restriction base="xs:decimal">
+      <xs:fractionDigits value="2"/><xs:minInclusive value="0.00"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="cantInt">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:maxInclusive value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Complejo para persona -->
+  <xs:complexType name="Persona">
+    <xs:sequence>
+      <xs:element name="Nombre" type="str50"/>
+      <xs:element name="CIF" type="codigoStr" minOccurs="0"/>
+      <xs:element name="Direccion" type="str100" minOccurs="0"/>
+      <xs:element name="Poblacion" type="str50" minOccurs="0"/>
+      <xs:element name="Provincia" type="str50" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Línea de producto -->
+  <xs:complexType name="Linea">
+    <xs:sequence>
+      <xs:element name="Codigo" type="codigoStr"/>
+      <xs:element name="Descripcion" type="str100"/>
+      <xs:element name="Cantidad" type="cantInt"/>
+      <xs:element name="Precio" type="dinero"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- Raíz: SECUENCIA SIMPLE (sin xs:all) -->
+  <xs:element name="Factura">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Numero" type="xs:string"/>
+        <xs:element name="Emisor" type="str50" minOccurs="0"/>
+        <xs:element name="ClienteID" type="numCliente"/>
+        <xs:element name="Cliente" type="Persona"/>
+        <xs:element name="Fecha" type="xs:date" minOccurs="0"/>
+        <xs:element name="Pago" type="str50" minOccurs="0"/>
+        <xs:element name="Lineas" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Linea" type="Linea" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Base" type="dinero" minOccurs="0"/>
+        <xs:element name="IVA" type="dinero" minOccurs="0"/>
+        <xs:element name="Total" type="dinero"/>
+      </xs:sequence>
+      <xs:attribute name="nif" type="codigoStr" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+

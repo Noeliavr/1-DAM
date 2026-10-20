@@ -1,0 +1,26 @@
+Ejercicio 4
+
+Crear un trigger que:
+
+Se ejecute antes de insertar en clientes
+Impida insertar saldos negativos
+Lance un error con mensaje personalizado
+
+
+delimiter $$
+
+drop trigger if exists comprobar_saldo_insert $$
+
+create trigger comprobar_saldo_insert
+before insert
+on clientes
+for each row
+begin
+    if new.saldo < 0 then
+        signal sqlstate '45000'
+        set message_text = 'Saldo no válido';
+    end if;
+end $$
+
+delimiter ;
+

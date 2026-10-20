@@ -1,0 +1,24 @@
+Ejercicio 10
+
+Crear un trigger que:
+
+se ejecute antes de UPDATE en clientes
+impida que el saldo sea negativo
+lance error
+
+delimiter $$
+
+drop trigger if exists control_saldo $$
+
+create trigger control_saldo
+before update
+on clientes
+for each row
+begin
+    if new.saldo < 0 then
+        signal sqlstate '45000'
+        set message_text = 'Saldo no puede ser negativo';
+    end if;
+end $$
+
+delimiter ;

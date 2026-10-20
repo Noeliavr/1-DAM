@@ -1,0 +1,67 @@
+Ejercicio 8
+
+Realizar en orden:
+
+Crear tabla clientes_premium
+Insertar clientes con compras > media
+Poner inactivos los de compras < media
+Eliminar pedidos de inactivos
+Insertar clientes sin pedidos en otra tabla
+Eliminar clientes sin pedidos
+
+
+
+
+
+-- 1
+create table clientes_premium (
+    id_cliente int,
+    nombre varchar(50),
+    total decimal(10,2)
+);
+
+-- 2
+insert into clientes_premium
+select c.id_cliente, c.nombre, sum(p.total)
+from clientes c
+join pedidos p on c.id_cliente = p.id_cliente
+group by c.id_cliente, c.nombre
+having sum(p.total) > (
+    select avg(total_cliente)
+    from (
+        select sum(total) total_cliente
+        from pedidos
+        group by id_cliente
+    ) t
+);
+
+-- 3
+update clientes
+set activo=false
+where id_cliente in (
+    select id_cliente
+    from (
+        select id_cliente, sum(total) total_cliente
+        from pedidos
+        group by id_cliente
+    ) t
+);
+
+-- 4
+delete from pedidos
+where id_cliente in (
+    select id_cliente from clientes where activo=false
+);
+
+-- 5
+create table clientes_sin_pedidos as
+select * from clientes c
+where not exists (
+    select 1 from pedidos p where p.id_cliente = c.id_cliente
+);
+
+-- 6
+delete from clientes
+where not exists (
+    select 1 from pedidos where pedidos.id_cliente = clientes.id_cliente
+);

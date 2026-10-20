@@ -1,0 +1,8 @@
+Ejercicio 7
+
+Crear una copia de la tabla clientes con todos sus datos.
+
+
+create table clientes_backup as
+select *
+from clientes;

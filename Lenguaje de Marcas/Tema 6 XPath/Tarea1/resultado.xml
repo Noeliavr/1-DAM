@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<agenda_contactos>
+   <persona>
+      <nombre>Inés</nombre>
+      <apellidos>López Pérez</apellidos>
+      <telefonos>
+         <movil>970123123</movil>
+      </telefonos>
+      <direccion>El Ranchito 24, 6B, Santander, 39006</direccion>
+   </persona>
+   <persona>
+      <nombre>Roberto</nombre>
+      <apellidos>Gutiérrez Gómez</apellidos>
+      <telefonos>
+         <movil>970987456</movil>
+         <casa>942333323</casa>
+      </telefonos>
+      <direccion>El Marranito 4, 2F, Santander, 39004</direccion>
+   </persona>
+   <persona>
+      <nombre>Juan</nombre>
+      <apellidos>Sánchez Martínez</apellidos>
+      <telefonos>
+         <movil>997564343</movil>
+         <casa>942987974</casa>
+         <trabajo>677899234</trabajo>
+      </telefonos>
+      <direccion>El Cangrejo 10, sn, Torrelavega, 39300</direccion>
+   </persona>
+</agenda_contactos>

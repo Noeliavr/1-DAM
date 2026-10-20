@@ -1,0 +1,24 @@
+Ejercicio 4
+
+Demostrar una lectura sucia sobre la tabla:
+
+
+create table productos (
+    id int primary key,
+    nombre varchar(255),
+    stock int
+);
+
+insert into productos values
+(1, 'Laptop', 10),
+(2, 'Mouse', 20),
+(3, 'Teclado', 30);
+
+
+
+start transaction;
+
+update productos
+set stock = 5
+where id = 1;
+

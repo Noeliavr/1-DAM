@@ -1,0 +1,23 @@
+Ejercicio 2
+
+
+Modificar la transferencia de Luisa a Miguel para bloquear tanto la cuenta de origen como la cuenta de destino.
+
+start transaction;
+
+select saldo
+from cuentas
+where id_cuenta in (1, 2)
+order by id_cuenta
+for update;
+
+update cuentas
+set saldo = saldo - 40
+where id_cuenta = 1
+and saldo >= 40;
+
+update cuentas
+set saldo = saldo + 40
+where id_cuenta = 2;
+
+commit;

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE listaventas [
+  <!ELEMENT listaventas (venta+)>
+  <!ELEMENT venta (importe, comprador, vendedor, fecha?, codigofactura)>
+  <!ELEMENT importe       (#PCDATA)>
+  <!ELEMENT comprador     (#PCDATA)>
+  <!ELEMENT vendedor      (#PCDATA)>
+  <!ELEMENT fecha         (#PCDATA)>
+  <!ELEMENT codigofactura (#PCDATA)>
+]>
+
+<listaventas>
+  <venta>
+    <importe>75</importe>
+    <comprador>Laura García</comprador>
+    <vendedor>Tienda Norte</vendedor>
+    <codigofactura>F100</codigofactura>
+  </venta>
+
+  <venta>
+    <importe>980</importe>
+    <comprador>Mario Díaz</comprador>
+    <vendedor>ElectroHogar</vendedor>
+    <fecha>2025-09-20</fecha>
+    <codigofactura>F101</codigofactura>
+  </venta>
+
+  <venta>
+    <importe>40</importe>
+    <comprador>Sara Pérez</comprador>
+    <vendedor>Kiosko Centro</vendedor>
+    <fecha>2025-09-21</fecha>
+    <codigofactura>F102</codigofactura>
+  </venta>
+</listaventas>

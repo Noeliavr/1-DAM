@@ -1,0 +1,13 @@
+Ejercicio 6
+
+Eliminar todos los clientes que:
+
+nunca hayan hecho pedidos
+
+
+delete from clientes
+where not exists (
+    select 1
+    from pedidos
+    where pedidos.id_cliente = clientes.id_cliente
+);

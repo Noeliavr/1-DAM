@@ -1,0 +1,63 @@
+Ejercicio 3
+
+Dadas las tablas:
+
+create table vuelos (
+    id_vuelo int primary key,
+    destino varchar(50),
+    asientos_libres int
+);
+
+create table reservas (
+    id_reserva int auto_increment primary key,
+    id_vuelo int,
+    nombre_pasajero varchar(100),
+    foreign key (id_vuelo) references vuelos(id_vuelo)
+);
+
+insert into vuelos values (105, 'Berlin', 1);
+
+
+Dos pasajeros intentan reservar la última plaza al mismo tiempo.
+Escribir las sentencias para evitar que se vendan dos plazas.
+
+
+Sesión 1
+
+start transaction;
+
+select asientos_libres
+from vuelos
+where id_vuelo = 105
+for update;
+
+update vuelos
+set asientos_libres = asientos_libres - 1
+where id_vuelo = 105
+and asientos_libres > 0;
+
+insert into reservas (id_vuelo, nombre_pasajero)
+values (105, 'Ana');
+
+commit;
+
+
+
+Sesión 2
+
+start transaction;
+
+select asientos_libres
+from vuelos
+where id_vuelo = 105
+for update;
+
+update vuelos
+set asientos_libres = asientos_libres - 1
+where id_vuelo = 105
+and asientos_libres > 0;
+
+insert into reservas (id_vuelo, nombre_pasajero)
+values (105, 'Luis');
+
+commit;

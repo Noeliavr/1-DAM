@@ -1,0 +1,10 @@
+Ejercicio 6
+
+Demostrar una lectura fantasma con productos cuyo stock sea mayor que 15.
+
+
+start transaction;
+
+select *
+from productos
+where stock > 15;

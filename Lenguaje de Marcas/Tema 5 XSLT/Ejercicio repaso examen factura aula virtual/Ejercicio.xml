@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ESTE ARCHIVO ES EL XML (SOLO DATOS).
+  Aquí guardamos la información de la factura.
+-->
+
+<!-- OPCIÓN EXTRA (NO OBLIGATORIA):
+     Esto enlaza el XML con el XSLT para que, si abres factura.xml en el navegador,
+     se vea ya “bonito” aplicando el XSLT.
+-->
+<?xml-stylesheet type="text/xsl" href="Ejercicio.xslt"?>
+
+<factura numero="999">
+  <empresa>
+    <nombre>Equipos Digitales S.L.</nombre>
+    <direccion>Av. Valladolid</direccion>
+    <ciudad>Madrid</ciudad>
+    <cp>28015</cp>
+    <cif>Q-9876543</cif>
+    <telefono>91.777.66.88</telefono>
+    <fax>91.777.66.99</fax>
+  </empresa>
+
+  <cabecera>
+    <fecha>12-01-2005</fecha>
+    <pedido>731</pedido>
+    <forma_pago>EFECTIVO</forma_pago>
+  </cabecera>
+
+  <cliente numero="879">
+    <nombre>Darío Bueno Gutiérrez</nombre>
+    <direccion_envio>Av. Oporto n°7 4°d</direccion_envio>
+    <poblacion>Madrid</poblacion>
+    <cp>28043</cp>
+    <provincia>Madrid</provincia>
+  </cliente>
+  <!-- IVA / I.G.V. -->
+    <impuestos>
+        <igv_porcentaje>16.0</igv_porcentaje>
+    </impuestos>
+  <lineas>
+    <linea>
+      <ref>MI193000F/8</ref>
+      <descripcion>MICRO PENTIUM IV 3000MHZ FB800</descripcion>
+      <cantidad>1</cantidad>
+      <precio>230</precio>
+      <igv>16.0</igv>
+      <importe>266.80</importe>
+    </linea>
+
+    <linea>
+      <ref>MB8QDIP4</ref>
+      <descripcion>PLACA BASE QDI P4</descripcion>
+      <cantidad>1</cantidad>
+      <precio>180</precio>
+      <igv>16.0</igv>
+      <importe>208.80</importe>
+    </linea>
+
+    <linea>
+      <ref>MEDD512M32</ref>
+      <descripcion>DIMM DDR 512MB 3200</descripcion>
+      <cantidad>2</cantidad>
+      <precio>40</precio>
+      <igv>16.0</igv>
+      <importe>92.80</importe>
+    </linea>
+
+    <linea>
+      <ref>HD250GSA7</ref>
+      <descripcion>DISCO DURO 250GB S-ATA 7200</descripcion>
+      <cantidad>4</cantidad>
+      <precio>120</precio>
+      <igv>16.0</igv>
+      <importe>556.80</importe>
+    </linea>
+  </lineas>
+
+  <totales>
+    <base_imponible>970.00</base_imponible>
+    <igv_porcentaje>16.0</igv_porcentaje>
+    <cuota_igv>155.20</cuota_igv>
+    <total_factura>1125.20</total_factura>
+  </totales>
+</factura>

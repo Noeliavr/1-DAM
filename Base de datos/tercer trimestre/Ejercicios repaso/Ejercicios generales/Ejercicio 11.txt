@@ -1,0 +1,15 @@
+Ejercicio 11
+
+Crear tabla con clientes sin pedidos usando NOT EXISTS.
+
+
+drop table if exists clientes_sin_pedidos;
+
+create table clientes_sin_pedidos as
+select *
+from clientes c
+where not exists (
+    select 1
+    from pedidos p
+    where p.id_cliente = c.id_cliente
+);

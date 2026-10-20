@@ -1,0 +1,35 @@
+ALGORITMO SelectivoEj2
+
+#Autor: RLR
+#Descripción:Realice un algoritmo para determinar si un número es positivo o negativo.
+
+
+INICIO
+
+	//-------------- Parte declarativa
+
+	num1: enteros
+
+	//----------------Cuerpo algoritmo
+	
+	mostrarPantalla ("Escribe número, pf: ")
+	leer num1
+
+	si num1 == 0 entonces
+		mostrarPantalla (num1, "es cero")
+	sino
+		si num1<0 entonces
+			mostrarPantalla (num1, "es negativo")
+		
+		sino
+
+			mostrarPantalla (num1, "es positivo")
+		finsi
+
+	finsi
+
+FIN
+
+
+
+

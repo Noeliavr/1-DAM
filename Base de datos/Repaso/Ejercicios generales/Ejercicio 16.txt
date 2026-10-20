@@ -1,0 +1,27 @@
+Ejercicio 16
+
+Demostrar non-repeatable read.
+
+set transaction isolation level read committed;
+
+start transaction;
+
+select stock
+from productos
+where id_producto = 1;
+
+
+start transaction;
+
+update productos
+set stock = stock + 10
+where id_producto = 1;
+
+commit;
+
+
+select stock
+from productos
+where id_producto = 1;
+
+commit;

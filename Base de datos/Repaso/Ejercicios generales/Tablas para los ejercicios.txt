@@ -1,0 +1,47 @@
+Tablas para los ejercicios
+
+
+create table clientes (
+    id_cliente int primary key,
+    nombre varchar(50),
+    ciudad varchar(50),
+    saldo decimal(10,2),
+    activo boolean
+);
+
+create table pedidos (
+    id_pedido int auto_increment primary key,
+    id_cliente int,
+    fecha date,
+    total decimal(10,2),
+    foreign key (id_cliente) references clientes(id_cliente)
+);
+
+create table productos (
+    id_producto int primary key,
+    nombre varchar(50),
+    precio decimal(10,2),
+    stock int
+);
+
+create table detalle_pedidos (
+    id_pedido int,
+    id_producto int,
+    cantidad int,
+    primary key (id_pedido, id_producto),
+    foreign key (id_pedido) references pedidos(id_pedido),
+    foreign key (id_producto) references productos(id_producto)
+);
+
+create table cuentas (
+    id_cuenta int primary key,
+    titular varchar(100),
+    saldo decimal(10,2)
+);
+
+create table empleados (
+    id int primary key,
+    nombre varchar(50),
+    salario decimal(10,2),
+    departamento varchar(50)
+);

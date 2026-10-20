@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+  <xsl:output method="html" encoding="UTF-8" indent="yes"/>
+  <xsl:strip-space elements="*"/>
+
+  <xsl:template match="/netflix">
+    <html>
+      <head>
+        <meta charset="UTF-8"/>
+        <title>Series de Netflix</title>
+        <style>
+          body { font-family: Arial, sans-serif; margin: 24px; }
+          h1 { margin-bottom: 12px; }
+
+          table { border-collapse: collapse; width: 100%; max-width: 900px; }
+          caption {
+            caption-side: top;
+            text-align: left;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 10px 0;
+          }
+          th, td { border: 1px solid #d0d0d0; padding: 10px; }
+          th { background: #f3f3f3; }
+
+          tbody tr:nth-child(even) { background: #fafafa; }
+          tbody tr:hover { background: #eef6ff; }
+
+          .badge { padding: 2px 8px; border-radius: 999px; border: 1px solid #cfcfcf; font-size: 12px; }
+          .finalizada { background: #ffe6e6; }
+          .emision { background: #e6f2ff; }
+          .desconocido { background: #f2f2f2; color: #666; }
+        </style>
+      </head>
+
+      <body>
+        <h1>Catálogo de series</h1>
+
+        <table>
+          <caption>Series de Netflix (cada serie en una fila)</caption>
+
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Género</th>
+              <th>Temporadas</th>
+              <th>Año inicio</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <xsl:for-each select="serie">
+              <tr>
+                <td><xsl:value-of select="@nombre"/></td>
+                <td>
+                  <xsl:choose>
+                    <xsl:when test="@genero"><xsl:value-of select="@genero"/></xsl:when>
+                    <xsl:otherwise>—</xsl:otherwise>
+                  </xsl:choose>
+                </td>
+                <td>
+                  <xsl:choose>
+                    <xsl:when test="@temporadas"><xsl:value-of select="@temporadas"/></xsl:when>
+                    <xsl:otherwise>—</xsl:otherwise>
+                  </xsl:choose>
+                </td>
+                <td>
+                  <xsl:choose>
+                    <xsl:when test="@anio_inicio"><xsl:value-of select="@anio_inicio"/></xsl:when>
+                    <xsl:otherwise>—</xsl:otherwise>
+                  </xsl:choose>
+                </td>
+                <td>
+                  <xsl:choose>
+                    <xsl:when test="@estado='finalizada'">
+                      <span class="badge finalizada">finalizada</span>
+                    </xsl:when>
+                    <xsl:when test="@estado='emision'">
+                      <span class="badge emision">en emisión</span>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <span class="badge desconocido">—</span>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </td>
+              </tr>
+            </xsl:for-each>
+          </tbody>
+        </table>
+
+      </body>
+    </html>
+  </xsl:template>
+
+</xsl:stylesheet>

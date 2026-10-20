@@ -1,0 +1,12 @@
+Ejercicio 5
+
+Aumentar un 10% el total de pedidos de clientes de Madrid.
+
+
+update pedidos
+set total = total * 1.10
+where id_cliente in (
+    select id_cliente
+    from clientes
+    where ciudad = 'Madrid'
+);

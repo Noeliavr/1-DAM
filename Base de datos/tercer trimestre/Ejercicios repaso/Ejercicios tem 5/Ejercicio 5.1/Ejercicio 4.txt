@@ -1,0 +1,18 @@
+Ejercicio 4
+
+
+Crear una tabla clientes_sin_pedidos e insertar en ella:
+
+todos los clientes que no tienen ningún pedido
+
+
+create table clientes_sin_pedidos as
+select *
+from clientes c
+where not exists (
+    select 1
+    from pedidos p
+    where p.id_cliente = c.id_cliente
+);
+
+

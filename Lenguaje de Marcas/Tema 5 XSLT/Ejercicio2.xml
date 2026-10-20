@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+  <xsl:output method="html" encoding="UTF-8" indent="yes"/>
+
+  <!-- Plantilla principal -->
+  <xsl:template match="/">
+    <!-- Lista de juegos (sirve si el root contiene <videojuego> o <juego>) -->
+    <xsl:variable name="games" select="/*/*[self::videojuego or self::juego]" />
+
+    <xsl:variable name="total" select="count($games)"/>
+    <xsl:variable name="sumPrecios" select="sum($games/*[self::precio or self::price])"/>
+    <xsl:variable name="avg"
+      select="($total &gt; 0) * ($sumPrecios div $total)" />
+
+    <!-- Obtener el precio máximo (XSLT 1.0: ordenamos desc y cogemos el primero) -->
+    <xsl:variable name="maxPriceRTF">
+      <xsl:for-each select="$games">
+        <xsl:sort select="number(*[self::precio or self::price])" data-type="number" order="descending"/>
+        <xsl:if test="position()=1">
+          <xsl:value-of select="number(*[self::precio or self::price])"/>
+        </xsl:if>
+      </xsl:for-each>
+    </xsl:variable>
+    <xsl:variable name="maxPrice" select="number($maxPriceRTF)"/>
+
+    <html>
+      <head>
+        <meta charset="UTF-8"/>
+        <title>Catálogo de Videojuegos</title>
+        <style>
+          body { font-family: Arial, sans-serif; }
+          h1 { text-align: center; margin: 10px 0 18px; font-size: 44px; }
+
+          table { border-collapse: collapse; width: 92%; margin: 0 auto; }
+          th, td { border: 1px solid #000; padding: 10px 12px; text-align: center; font-size: 18px; }
+
+          th { background: #2f2f2f; color: #fff; font-weight: 700; }
+          .precio-max { background: #f6c9c9; font-weight: 700; }
+
+          .resumen { text-align: center; margin-top: 26px; font-size: 22px; font-weight: 700; }
+          .resumen span { font-weight: 400; }
+        </style>
+      </head>
+
+      <body>
+        <h1>Catálogo de Videojuegos</h1>
+
+        <table>
+          <tr>
+            <th>Título</th>
+            <th>Plataforma</th>
+            <th>Año</th>
+            <th>Género</th>
+            <th>Precio (€)</th>
+          </tr>
+
+          <xsl:for-each select="$games">
+            <xsl:variable name="p" select="number(*[self::precio or self::price])"/>
+
+            <tr>
+              <td>
+                <xsl:value-of select="normalize-space(*[self::titulo or self::título or self::title])"/>
+              </td>
+              <td>
+                <xsl:value-of select="normalize-space(*[self::plataforma or self::platform])"/>
+              </td>
+              <td>
+                <xsl:value-of select="normalize-space(*[self::ano or self::año or self::anyo or self::year])"/>
+              </td>
+              <td>
+                <xsl:value-of select="normalize-space(*[self::genero or self::género or self::genre])"/>
+              </td>
+
+              <td>
+                <xsl:attribute name="class">
+                  <xsl:text></xsl:text>
+                  <xsl:if test="$p = $maxPrice">precio-max</xsl:if>
+                </xsl:attribute>
+
+                <xsl:value-of select="format-number($p, '0.00')"/>
+                <xsl:text> €</xsl:text>
+              </td>
+            </tr>
+          </xsl:for-each>
+        </table>
+
+        <div class="resumen">
+          <div>Total de videojuegos:<span><xsl:value-of select="$total"/></span></div>
+          <div style="margin-top:18px;">
+            Precio medio:<span><xsl:value-of select="format-number($avg, '0.00')"/> €</span>
+          </div>
+        </div>
+      </body>
+    </html>
+  </xsl:template>
+
+</xsl:stylesheet>

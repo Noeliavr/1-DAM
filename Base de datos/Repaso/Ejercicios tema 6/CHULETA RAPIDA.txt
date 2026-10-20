@@ -1,0 +1,190 @@
+CHULETA RAPIDA
+
+🔹 PROCEDIMIENTO BASE
+
+delimiter $$
+
+drop procedure if exists nombre $$
+
+create procedure nombre(
+    in p1 int,
+    out res boolean,
+    out msg varchar(100)
+)
+begin
+    declare v int default 0;
+
+    declare exit handler for sqlexception
+    begin
+        rollback;
+        set res=false;
+        set msg='error';
+    end;
+
+    start transaction;
+
+    -- lógica
+
+    commit;
+    set res=true;
+    set msg='ok';
+
+end $$
+
+delimiter ;
+
+
+
+
+🔹 FUNCIÓN
+
+delimiter $$
+
+create function nombre(p1 int)
+returns int
+begin
+    declare v int;
+
+    -- lógica
+
+    return v;
+end $$
+
+delimiter ;
+
+
+
+
+🔹 IF / CASE
+
+
+if condicion then
+elseif condicion then
+else
+end if;
+
+
+
+case
+when cond then
+when cond then
+else
+end case;
+
+
+
+
+🔹 SELECT INTO (MUY IMPORTANTE)
+
+select campo
+into variable
+from tabla
+where condicion;
+
+
+❌ si devuelve más de una fila → ERROR
+
+
+
+🔹 VALIDAR EXISTE
+
+select count(*) into v
+from tabla
+where id = p_id;
+
+if v = 0 then
+    signal sqlstate '45000'
+    set message_text='no existe';
+end if;
+
+
+
+
+🔹 TRANSACCIONES
+
+start transaction;
+
+commit;
+rollback;
+
+
+
+
+🔹 BLOQUEO (CLAVE EXAMEN)
+
+create trigger nombre
+before insert/update
+on tabla
+for each row
+begin
+    if new.campo < 0 then
+        signal sqlstate '45000'
+        set message_text='error';
+    end if;
+end;
+
+
+👉 evita que otro toque ese dato
+
+
+🔹 TRIGGER
+
+create trigger nombre
+before insert/update
+on tabla
+for each row
+begin
+    if new.campo < 0 then
+        signal sqlstate '45000'
+        set message_text='error';
+    end if;
+end;
+
+
+
+🔹 CURSOR
+
+declare fin boolean default false;
+
+declare c cursor for
+    select id from tabla;
+
+declare continue handler for not found set fin = true;
+
+open c;
+
+loop1: loop
+    fetch c into v_id;
+
+    if fin then
+        leave loop1;
+    end if;
+
+end loop;
+
+close c;
+
+
+
+
+🔹 ERRORES PERSONALIZADOS
+
+signal sqlstate '45000'
+set message_text='mensaje';
+
+
+
+🔹 ERRORES TÍPICOS (TE MATAN EL EXAMEN)
+
+❌ olvidar delimiter
+❌ declarar variables después de usar código
+❌ no usar into
+❌ no usar for update
+❌ olvidar commit/rollback
+❌ cursor sin handler
+❌ función sin return
+
+
+
+
+

@@ -1,0 +1,112 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="factura">
+
+        <xs:complexType>
+
+            <xs:sequence>
+                <xs:element name = "numerofactura" type="xs:int"></xs:element>
+                <xs:element name="datosempresa">
+
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Nombre" type="xs:string"></xs:element>
+                            <xs:element name="Direccion" type="xs:string"></xs:element>
+                            <xs:element name="CIF">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:pattern value="[A-Z]-[0-9]{7}"></xs:pattern>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="Telefono" type="xs:string"></xs:element>
+                            <xs:element name="Fax" type="xs:string"></xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="justificante">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="fecha" type="xs:date"></xs:element>
+                            <xs:element name="npedido" type="xs:int"></xs:element>
+                            <xs:element name="pago">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:string">
+                                        <xs:enumeration value="EFECTIVO"></xs:enumeration>
+                                        <xs:enumeration value="TARJETA"></xs:enumeration>
+                                        <xs:enumeration value="TRANSFERENCIA"></xs:enumeration>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="datoscliente">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="ncliente" type="xs:int"></xs:element>
+                            <xs:element name="Nombre" type="xs:string"></xs:element>
+                            <xs:element name="direccionenvio" type="xs:string"></xs:element>
+                            <xs:element name="poblacion" type="xs:string"></xs:element>
+                            <xs:element name="codpostal">
+                                <xs:simpleType>
+                                    <xs:restriction base="xs:int">
+                                        <xs:pattern value="[0-9]{5}"></xs:pattern>
+                                    </xs:restriction>
+                                </xs:simpleType>
+                            </xs:element>
+                            <xs:element name="provincia" type="xs:string"></xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="datosfactura">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="linea" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="ref" type="xs:string"></xs:element>
+                                        <xs:element name="descripcion" type="xs:string"></xs:element>
+                                        <xs:element name="cantidad" type="xs:int"></xs:element>
+                                        <xs:element name="precio" type="xs:decimal"></xs:element>
+                                        <xs:element name="IGV" type="xs:decimal"></xs:element>
+                                        <xs:element name="importe" type="xs:decimal"></xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="totalfactura">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="baseimponible" type="xs:decimal"></xs:element>
+                            <xs:element name="IGV" type="xs:decimal"></xs:element>
+                            <xs:element name="cuotaIGV" type="xs:decimal"></xs:element>
+                            <xs:element name="totalfactura" type="xs:decimal"></xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+
+            </xs:sequence>   
+
+
+
+        </xs:complexType>   
+
+
+
+
+
+    </xs:element>
+
+
+
+
+
+
+
+
+
+</xs:schema>

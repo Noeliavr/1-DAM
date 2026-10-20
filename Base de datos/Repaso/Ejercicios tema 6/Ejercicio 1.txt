@@ -1,0 +1,93 @@
+Ejercicio 1
+
+Dadas las siguientes tablas:
+
+create table clientes (
+    id_cliente int primary key,
+    nombre varchar(50),
+    saldo decimal(10,2)
+);
+
+create table movimientos (
+    id_movimiento int auto_increment primary key,
+    id_cliente int,
+    cantidad decimal(10,2),
+    tipo varchar(20),
+    foreign key (id_cliente) references clientes(id_cliente)
+);
+
+
+Realizar un procedimiento almacenado llamado retirar_dinero que reciba:
+
+id_cliente (IN)
+cantidad (IN)
+resultadoOK (OUT)
+mensaje_error (OUT)
+
+El procedimiento debe:
+
+Validar que la cantidad sea mayor que 0
+Validar que el cliente exista
+Validar que el cliente tenga saldo suficiente
+Si todo es correcto:
+Restar el saldo
+
+
+Resultado:
+
+delimiter $$
+
+drop procedure if exists retirar_dinero $$
+
+create procedure retirar_dinero(
+    in p_id_cliente int,
+    in p_cantidad decimal(10,2),
+    out p_resultadoOK boolean,
+    out p_mensaje_error varchar(100)
+)
+begin
+    declare v_saldo decimal(10,2);
+    declare v_existe int default 0;
+
+    set p_resultadoOK = false;
+    set p_mensaje_error = '';
+
+    if p_cantidad <= 0 then
+        set p_mensaje_error = 'La cantidad debe ser mayor que 0';
+
+    else
+        select count(*)
+        into v_existe
+        from clientes
+        where id_cliente = p_id_cliente;
+
+        if v_existe = 0 then
+            set p_mensaje_error = 'El cliente no existe';
+
+        else
+            select saldo
+            into v_saldo
+            from clientes
+            where id_cliente = p_id_cliente;
+
+            if v_saldo < p_cantidad then
+                set p_mensaje_error = 'Saldo insuficiente';
+
+            else
+                update clientes
+                set saldo = saldo - p_cantidad
+                where id_cliente = p_id_cliente;
+
+                insert into movimientos(id_cliente, cantidad, tipo)
+                values (p_id_cliente, p_cantidad, 'RETIRO');
+
+                set p_resultadoOK = true;
+                set p_mensaje_error = 'OK';
+            end if;
+        end if;
+    end if;
+end $$
+
+delimiter ;
+
+

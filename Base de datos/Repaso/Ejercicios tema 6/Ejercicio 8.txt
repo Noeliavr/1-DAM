@@ -1,0 +1,41 @@
+Ejercicio 8
+
+Crear un procedimiento actualizar_saldo que:
+
+reciba id_cliente y cantidad
+si cantidad < 0 → error
+si cliente no existe → error
+si todo correcto → sumar cantidad al saldo
+
+delimiter $$
+
+drop procedure if exists actualizar_saldo $$
+
+create procedure actualizar_saldo(
+    in p_id int,
+    in p_cantidad decimal(10,2)
+)
+begin
+    declare v_existe int;
+
+    if p_cantidad < 0 then
+        signal sqlstate '45000'
+        set message_text = 'Cantidad inválida';
+    end if;
+
+    select count(*)
+    into v_existe
+    from clientes
+    where id_cliente = p_id;
+
+    if v_existe = 0 then
+        signal sqlstate '45000'
+        set message_text = 'Cliente no existe';
+    end if;
+
+    update clientes
+    set saldo = saldo + p_cantidad
+    where id_cliente = p_id;
+end $$
+
+delimiter ;

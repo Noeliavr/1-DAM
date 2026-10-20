@@ -1,0 +1,57 @@
+Ejercicio 7
+
+Dadas las tablas:
+
+create table cuentas (
+    id_cuenta int primary key,
+    titular varchar(100),
+    saldo decimal(10,2)
+);
+
+create table movimientos (
+    id_movimiento int auto_increment primary key,
+    id_cuenta int,
+    tipo varchar(20),
+    cantidad decimal(10,2),
+    foreign key (id_cuenta) references cuentas(id_cuenta)
+);
+
+insert into cuentas values
+(1, 'Luisa', 100.00),
+(2, 'Miguel', 50.00);
+
+Luisa quiere transferir 40 euros a Miguel.
+Realizar el script completo usando transacción. Si Luisa no tiene saldo, no debe realizarse ningún cambio.
+
+
+
+set transaction isolation level serializable;
+
+start transaction;
+
+select saldo
+from cuentas
+where id_cuenta = 1;
+
+update cuentas
+set saldo = saldo - 40
+where id_cuenta = 1
+and saldo >= 40;
+
+update cuentas
+set saldo = saldo + 40
+where id_cuenta = 2;
+
+insert into movimientos (id_cuenta, tipo, cantidad)
+values
+(1, 'SALIDA', 40),
+(2, 'ENTRADA', 40);
+
+commit;
+
+
+
+
+Si el saldo no llega, se debería hacer:
+
+rollback;

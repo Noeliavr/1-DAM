@@ -1,0 +1,46 @@
+ALGORITMO SelectivoEj3
+
+#Autor: RLR
+#Descripción:Realice un algoritmo para determinar cuánto se debe pagar por x unidades de lápices considerando
+que si son 1000 o más el coste es de 0, 25; de lo contrario, el precio es de 0,75
+
+
+INICIO
+
+	//-------------- Parte declarativa
+	CONSTANTE PRECIO_MIN= 0.25 //Precio aplicar a ud si el nº uds es 1000 o mas
+	CONSTANTE PRECIO_MAX = 0.75 //Precio aplicar a ud si el nº uds es inferior a 1000
+	CONSTANTE TOPE=1000 
+	
+
+	numeroLapiceros: numero
+	precio: decimal
+
+	//----------------Cuerpo algoritmo
+	
+	mostrarPantalla ("Cantidad lapiceros:")
+	leer numeroLapiceros
+	
+	si numeroLapiceros<= 0 entonces
+		mostrarPantalla ("Escribe un valor mayor que cero")
+
+	sino
+		
+		SI ( numeroLapiceros >= TOPE) ENTONCES
+			precio = numeroLapiceros * PRECIO_MIN;
+		SINO
+			precio = numeroLapiceros * PRECIO_MAX;
+		FINSI
+	
+		mostrarPantalla (" Has pedido ", numeroLapiceros, " unidades y el precio total es ", precio)
+
+	finsi
+
+FIN
+
+
+
+
+
+
+

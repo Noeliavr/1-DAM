@@ -1,0 +1,12 @@
+Ejercicio 5
+
+Demostrar lectura no repetible con el producto 2.
+
+
+start transaction;
+
+update productos
+set stock = 25
+where id = 2;
+
+commit;

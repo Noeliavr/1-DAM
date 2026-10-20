@@ -1,0 +1,27 @@
+Ejercicio 15
+
+Demostrar dirty read con dos sesiones.
+
+start transaction;
+
+update productos
+set stock = 5
+where id_producto = 1;
+
+set transaction isolation level read uncommitted;
+
+start transaction;
+
+select stock
+from productos
+where id_producto = 1;
+
+rollback;
+
+
+select stock
+from productos
+where id_producto = 1;
+
+commit;
+

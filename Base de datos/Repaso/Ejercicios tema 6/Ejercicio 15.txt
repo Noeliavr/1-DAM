@@ -1,0 +1,23 @@
+Ejercicio 15
+
+Trigger que:
+
+en UPDATE
+si salario baja → error
+si sube → guardar histórico
+
+
+
+create trigger control_salario
+before update
+on empleados
+for each row
+begin
+    if new.salario < old.salario then
+        signal sqlstate '45000'
+        set message_text='no puede bajar salario';
+    else
+        insert into auditoria(...)
+        values(...);
+    end if;
+end;

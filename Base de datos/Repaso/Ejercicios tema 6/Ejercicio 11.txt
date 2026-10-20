@@ -1,0 +1,52 @@
+Ejercicio 11
+
+Crear un procedimiento que:
+
+recorra todos los clientes
+si saldo < 100 → aumentar 10%
+si saldo > 1000 → disminuir 5%
+
+Usar cursor.
+
+
+delimiter $$
+
+drop procedure if exists ajustar_saldos $$
+
+create procedure ajustar_saldos()
+begin
+    declare v_id int;
+    declare v_saldo decimal(10,2);
+    declare fin boolean default false;
+
+    declare c cursor for
+        select id_cliente, saldo from clientes;
+
+    declare continue handler for not found set fin = true;
+
+    open c;
+
+    bucle: loop
+        fetch c into v_id, v_saldo;
+
+        if fin then
+            leave bucle;
+        end if;
+
+        if v_saldo < 100 then
+            update clientes
+            set saldo = saldo * 1.10
+            where id_cliente = v_id;
+
+        elseif v_saldo > 1000 then
+            update clientes
+            set saldo = saldo * 0.95
+            where id_cliente = v_id;
+        end if;
+
+    end loop;
+
+    close c;
+end $$
+
+delimiter ;

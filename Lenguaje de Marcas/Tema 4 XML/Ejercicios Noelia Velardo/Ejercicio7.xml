@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE receta [
+    <!ELEMENT receta (nombre, ingredientes, instrucciones)>
+    <!ELEMENT nombre (#PCDATA)>
+    <!ELEMENT instrucciones (#PCDATA)>
+    <!ELEMENT ingredientes (ingrediente+)>
+    <!ELEMENT ingrediente (#PCDATA)>
+    <!ATTLIST receta
+              raciones   CDATA              #REQUIRED
+              dificultad (baja|media|alta)  "media">
+    <!ATTLIST ingrediente
+              cantidad CDATA #IMPLIED
+              unidad   CDATA #IMPLIED>
+]>
+<receta raciones="4">
+    <nombre>Tortilla de patatas</nombre>
+    <ingredientes>
+        <ingrediente cantidad="3" unidad="ud">Huevos</ingrediente>
+    </ingredientes>
+    <instrucciones>Batir y freír.</instrucciones>
+</receta>

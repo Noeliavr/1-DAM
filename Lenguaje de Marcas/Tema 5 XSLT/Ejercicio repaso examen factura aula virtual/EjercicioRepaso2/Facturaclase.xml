@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="Facturaclase.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-stylesheet type="text/xsl" href="facturaclase.xsl" ?>
+
+    <factura>
+        <numerofactura>999</numerofactura>
+        <datosempresa>
+            <Nombre>Equipos digitales S.L.</Nombre>
+            <Direccion>Av. Valladolid, Madrid 28015</Direccion>
+            <CIF>Q-9876543</CIF>
+            <Telefono>91.777.66.88</Telefono>
+            <Fax>91.77.66.99</Fax>
+        </datosempresa>
+        <justificante>
+            <fecha>2005-01-12</fecha>
+            <npedido>731</npedido>
+            <pago>EFECTIVO</pago>
+        </justificante>
+        <datoscliente>
+            <ncliente>879</ncliente>
+            <Nombre>Darío Bueno Gutiérrez</Nombre>
+            <direccionenvio>Av. Oporto nº7 4ºd</direccionenvio>
+            <poblacion>Madrid</poblacion>
+            <codpostal>28043</codpostal>
+            <provincia>Madrid</provincia>
+        </datoscliente>
+        <datosfactura>
+            <linea>
+                <ref>MII93000F/8</ref>
+                <descripcion>MICRO PENTIUM IV 3000 MHZ FB800</descripcion>
+                <cantidad>1</cantidad>
+                <precio>230 </precio>
+                <IGV>16.0</IGV>
+                <importe>266.80</importe>
+            </linea>
+            <linea>
+                <ref>MB8QDIP4</ref>
+                <descripcion>PLACA BASE QDI P4</descripcion>
+                <cantidad>1</cantidad>
+                <precio>180</precio>
+                <IGV>16.0</IGV>
+                <importe>208.80</importe>
+            </linea>
+            <linea>
+                <ref>MEDD512M32</ref>
+                <descripcion>DIMM DDR 512MB 3200</descripcion>
+                <cantidad>2</cantidad>
+                <precio>40</precio>
+                <IGV>16.0</IGV>
+                <importe>92.80</importe>
+            </linea>
+            <linea>
+                <ref>HD250GSA7</ref>
+                <descripcion>DISCO DURO 250GB S-ATA 7200</descripcion>
+                <cantidad>4</cantidad>
+                <precio>120</precio>
+                <IGV>16.0</IGV>
+                <importe>556.80</importe>
+            </linea>
+        </datosfactura>
+
+        <totalfactura>
+            <baseimponible>970.00</baseimponible>
+            <IGV>16.0</IGV>
+            <cuotaIGV>155.20</cuotaIGV>
+            <totalfactura>1125.20</totalfactura>
+        </totalfactura>
+    
+    </factura>

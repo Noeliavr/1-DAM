@@ -1,0 +1,17 @@
+<!-- Datos de la empresa proveedora-->
+<datos_empresa>
+    <nombre>Equipos Digitales</nombre>
+    <direccion>
+        <tipo_via>Avenida</tipo_via>
+        <nombre>Valladolid</nombre>
+        <poblacion>Madrid</poblacion>
+        <codigo_postal>28015</codigo_postal>
+        <numero></numero>
+        <piso></piso>
+        <puerta></puerta>
+        <provincia></provincia>
+    </direccion>
+    <cif>Q-9876543</cif>
+    <telefono>99.777.66.88</telefono>
+    <fax>99.777.66.99</fax>
+</datos_empresa>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Nombre: longitud entre 2 y 50 caracteres [web:9] -->
+  <xs:simpleType name="tipoNombre">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="2"/>
+      <xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Email: patrón estándar [web:6] -->
+  <xs:simpleType name="tipoEmail">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Teléfono: 9-15 caracteres alfanuméricos con símbolos comunes [web:12] -->
+  <xs:simpleType name="tipoTelefono">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9\s+()-]{9,15}"/>
+      <xs:minLength value="9"/>
+      <xs:maxLength value="15"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Fecha nacimiento: rango realista (1926-2006) [web:6] -->
+  <xs:simpleType name="tipoFechaNacimiento">
+    <xs:restriction base="xs:date">
+      <xs:minInclusive value="1926-01-01"/>
+      <xs:maxInclusive value="2006-01-22"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Código postal: 5 dígitos España [web:6][web:12] -->
+  <xs:simpleType name="tipoCodigoPostal">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{5}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Ciudad: longitud razonable -->
+  <xs:simpleType name="tipoCiudad">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="2"/>
+      <xs:maxLength value="50"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Provincia: lista enumerada de España [web:6] -->
+  <xs:simpleType name="tipoProvincia">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Madrid"/>
+      <xs:enumeration value="Guadalajara"/>
+      <!-- Añade el resto de 50 provincias españolas como en el código generado -->
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Preferencia contacto: opciones del formulario -->
+  <xs:simpleType name="tipoPreferencia">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Email"/>
+      <xs:enumeration value="Teléfono"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Género: opciones del formulario -->
+  <xs:simpleType name="tipoGenero">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Masculino"/>
+      <xs:enumeration value="Femenino"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Raíz del formulario -->
+  <xs:element name="datosUsuario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="nombre" type="tipoNombre"/>
+        <xs:element name="email" type="tipoEmail"/>
+        <xs:element name="telefono" type="tipoTelefono"/>
+        <xs:element name="fechaNacimiento" type="tipoFechaNacimiento"/>
+        <xs:element name="codigoPostal" type="tipoCodigoPostal"/>
+        <xs:element name="ciudad" type="tipoCiudad"/>
+        <xs:element name="provincia" type="tipoProvincia"/>
+        <xs:element name="preferenciaContacto" type="tipoPreferencia"/>
+        <xs:element name="comentarios" type="xs:string" minOccurs="0"/>
+        <xs:element name="genero" type="tipoGenero"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

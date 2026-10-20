@@ -1,0 +1,22 @@
+Ejercicio 2
+
+El pasajero 'Jose Luis' ya no puede viajar.
+Realizar el script para anular su reserva y devolver el asiento libre al vuelo.
+
+start transaction;
+
+select *
+from reservas
+where id_vuelo = 101
+and nombre_pasajero = 'Jose Luis';
+
+update vuelos
+set asientos_libres = asientos_libres + 1
+where id_vuelo = 101;
+
+delete from reservas
+where id_vuelo = 101
+and nombre_pasajero = 'Jose Luis';
+
+commit;
+

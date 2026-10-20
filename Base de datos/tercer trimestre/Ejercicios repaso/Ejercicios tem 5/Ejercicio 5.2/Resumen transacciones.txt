@@ -1,0 +1,45 @@
+Resumen transacciones
+
+
+start transaction;
+
+-- operaciones
+
+commit;
+
+
+
+
+start transaction;
+
+-- si algo va mal
+
+rollback;
+
+
+
+set transaction isolation level read uncommitted;
+set transaction isolation level read committed;
+set transaction isolation level repeatable read;
+set transaction isolation level serializable;
+
+READ UNCOMMITTED  -> permite todo lo malo
+READ COMMITTED    -> evita dirty read
+REPEATABLE READ   -> evita dirty read y non-repeatable read
+SERIALIZABLE      -> evita dirty read, non-repeatable read y phantom read
+
+
+
+
+Dirty read:
+leer datos sin commit.
+
+Non-repeatable read:
+leer dos veces el mismo registro y que cambie.
+
+Phantom read:
+leer una condición y que aparezcan/desaparezcan filas.
+
+
+
+

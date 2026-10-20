@@ -1,0 +1,16 @@
+Ejercicio 7
+
+Crear procedimiento que transfiera dinero entre cuentas con transacción.
+
+start transaction;
+
+update cuentas
+set saldo = saldo - 40
+where id_cuenta = 1
+and saldo >= 40;
+
+update cuentas
+set saldo = saldo + 40
+where id_cuenta = 2;
+
+commit;

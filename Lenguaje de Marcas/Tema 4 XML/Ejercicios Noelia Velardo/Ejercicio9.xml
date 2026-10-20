@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pelicula [
+    <!ELEMENT pelicula (titulo, director, sinopsis, actores, anio?)>
+    <!ELEMENT titulo   (#PCDATA)>
+    <!ELEMENT director (#PCDATA)>
+    <!ELEMENT sinopsis (#PCDATA)>
+    <!ELEMENT actores  (actor+)>
+    <!ELEMENT actor    (#PCDATA)>
+    <!ELEMENT anio     (#PCDATA)>
+]>
+<pelicula>
+    <titulo>Matrix</titulo>
+    <director>Lana y Lilly Wachowski</director>
+    <sinopsis>Un hacker descubre la verdad sobre su realidad.</sinopsis>
+    <actores>
+        <actor>Keanu Reeves</actor>
+        <actor>Carrie-Anne Moss</actor>
+    </actores>
+    <anio>1999</anio>
+</pelicula>

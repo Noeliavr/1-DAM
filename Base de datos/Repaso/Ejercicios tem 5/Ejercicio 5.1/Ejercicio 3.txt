@@ -1,0 +1,13 @@
+Ejercicio 3
+
+
+Eliminar los pedidos de clientes que estén inactivos.
+
+
+delete from pedidos
+where id_cliente in (
+    select id_cliente
+    from clientes
+    where activo = false
+);
+

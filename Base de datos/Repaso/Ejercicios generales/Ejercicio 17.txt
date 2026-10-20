@@ -1,0 +1,26 @@
+Ejercicio 17
+
+
+Demostrar phantom read.
+
+set transaction isolation level read committed;
+
+start transaction;
+
+select *
+from productos
+where stock > 10;
+
+start transaction;
+
+insert into productos(id_producto, nombre, precio, stock)
+values (99, 'Producto fantasma', 100, 50);
+
+commit;
+
+
+select *
+from productos
+where stock > 10;
+
+commit;

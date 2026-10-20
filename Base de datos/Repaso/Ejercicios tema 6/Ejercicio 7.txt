@@ -1,0 +1,33 @@
+Ejercicio 7
+
+Crear un procedimiento insertar_cliente que reciba:
+
+nombre
+saldo
+
+Debe:
+
+Insertar el cliente
+Si saldo < 0 → lanzar error
+
+
+delimiter $$
+
+drop procedure if exists insertar_cliente $$
+
+create procedure insertar_cliente(
+    in p_nombre varchar(50),
+    in p_saldo decimal(10,2)
+)
+begin
+    if p_saldo < 0 then
+        signal sqlstate '45000'
+        set message_text = 'Saldo negativo no permitido';
+    end if;
+
+    insert into clientes(nombre, saldo)
+    values (p_nombre, p_saldo);
+end $$
+
+delimiter ;
+

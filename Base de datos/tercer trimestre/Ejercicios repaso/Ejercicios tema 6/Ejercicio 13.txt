@@ -1,0 +1,34 @@
+Ejercicio 13
+
+Crear procedimiento que:
+
+reciba inf y sup
+use la función anterior
+si no válido → error
+si válido → mostrar números pares entre ambos
+
+
+
+delimiter $$
+
+create procedure pares(inf int, sup int)
+begin
+    declare i int;
+
+    if es_valido(inf, sup) = 0 then
+        signal sqlstate '45000'
+        set message_text='intervalo inválido';
+    end if;
+
+    set i = inf;
+
+    while i <= sup do
+        if i % 2 = 0 then
+            select i;
+        end if;
+        set i = i + 1;
+    end while;
+
+end $$
+
+delimiter ;

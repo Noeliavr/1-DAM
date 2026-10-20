@@ -1,0 +1,26 @@
+Ejercicio 1
+
+Crear una función que devuelva el total de compras de un cliente.
+
+
+
+delimiter $$
+
+drop function if exists total_compras_cliente $$
+
+create function total_compras_cliente(
+    p_id_cliente int
+)
+returns decimal(10,2)
+begin
+    declare v_total decimal(10,2);
+
+    select ifnull(sum(total), 0)
+    into v_total
+    from pedidos
+    where id_cliente = p_id_cliente;
+
+    return v_total;
+end $$
+
+delimiter ;

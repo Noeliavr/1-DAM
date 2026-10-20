@@ -1,0 +1,13 @@
+Ejercicio 6
+
+
+Se desea generar un informe de todas las cuentas sin que nadie pueda modificar la tabla mientras se genera.
+Escribir las sentencias necesarias.
+
+
+lock table cuentas read;
+
+select *
+from cuentas;
+
+unlock tables;

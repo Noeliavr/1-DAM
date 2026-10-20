@@ -1,0 +1,9 @@
+Ejercicio 19
+
+Crear copia de una tabla con todos sus datos.
+
+drop table if exists clientes_backup;
+
+create table clientes_backup as
+select *
+from clientes;

@@ -1,0 +1,14 @@
+Ejercicio 9
+
+Indica qué nivel de aislamiento usarías en cada caso:
+
+No importa leer datos no confirmados.
+No se permiten lecturas sucias.
+No se permiten lecturas sucias ni no repetibles.
+No se permite ninguna anomalía.
+
+
+1. READ UNCOMMITTED
+2. READ COMMITTED
+3. REPEATABLE READ
+4. SERIALIZABLE

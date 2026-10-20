@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<productos>
+    <producto tipo="raton">
+        <codigo>R001</codigo>
+        <nombre>Ratón óptico</nombre>
+        <descripcion>Ratón inalámbrico negro</descripcion>
+    </producto>
+
+    <producto tipo="teclado">
+        <codigo>T010</codigo>
+        <nombre>Teclado mecánico</nombre>
+    </producto>
+
+    <producto tipo="monitor">
+        <codigo>M300</codigo>
+        <descripcion>Monitor 27 pulgadas</descripcion>
+    </producto>
+</productos>
+

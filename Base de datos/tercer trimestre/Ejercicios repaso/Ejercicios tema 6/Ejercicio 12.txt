@@ -1,0 +1,31 @@
+Ejercicio 12
+
+Crear una función es_valido que reciba:
+
+límite inferior
+límite superior
+
+Debe devolver:
+
+1 si:
+ambos son > 0
+inferior < superior
+0 en caso contrario
+
+
+
+delimiter $$
+
+create function es_valido(inf int, sup int)
+returns int
+begin
+    if inf > 0 and sup > 0 and inf < sup then
+        return 1;
+    else
+        return 0;
+    end if;
+end $$
+
+delimiter ;
+
+

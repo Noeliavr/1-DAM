@@ -1,0 +1,47 @@
+ALGORITMO Ejercicio2
+// Autor: RLR
+// Fecha: Sept 2025
+// Descripción:el promedio de 4 calificaciones con misma ponderación
+
+INICIO
+ //-------------------------- Parte declarativa
+	nota1, nota2, nota3, nota4: decimal
+	resultado: decimal
+	suma_nota: decimal
+
+ //-------------------------- Cuerpo algoritmo
+      //pedimos las notas
+	mostrarPantalla ("Escribe nota1: ");
+	leer nota1;
+	mostrarPantalla ("Escribe nota2: ");
+	leer nota2;
+	mostrarPantalla ("Escribe nota3: ");
+	leer nota3;
+	mostrarPantalla ("Escribe nota4: ");
+	leer nota4;	
+
+	//opción con suma intermedia
+        suma_nota=nota1+nota2+nota3+nota4
+	resultado=suma_nota/4
+
+	//opción resultado final
+	resultado = (nota1+nota2+nota3+nota4)/4
+	
+	mostrarPantalla("La media de notas es:", resultado)
+	
+
+FIN 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

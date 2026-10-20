@@ -1,0 +1,40 @@
+Ejercicio 18
+
+Crear trigger que registre cambios en salarios.
+
+drop table if exists empleados_auditoria;
+
+create table empleados_auditoria (
+    id_auditoria int auto_increment primary key,
+    empleado_id int,
+    salario_antiguo decimal(10,2),
+    salario_nuevo decimal(10,2),
+    fecha timestamp default current_timestamp,
+    foreign key (empleado_id) references empleados(id)
+);
+
+
+delimiter $$
+
+drop trigger if exists trg_auditoria_salario $$
+
+create trigger trg_auditoria_salario
+after update
+on empleados
+for each row
+begin
+    if old.salario <> new.salario then
+        insert into empleados_auditoria(
+            empleado_id,
+            salario_antiguo,
+            salario_nuevo
+        )
+        values (
+            old.id,
+            old.salario,
+            new.salario
+        );
+    end if;
+end $$
+
+delimiter ;

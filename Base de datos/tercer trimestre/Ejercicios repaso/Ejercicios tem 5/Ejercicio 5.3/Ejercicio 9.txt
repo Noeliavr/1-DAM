@@ -1,0 +1,10 @@
+Ejercicio 9
+
+Escribir las sentencias para congelar toda la base de datos antes de realizar una copia de seguridad.
+
+
+flush tables with read lock;
+
+-- aquí se haría el backup
+
+unlock tables;
